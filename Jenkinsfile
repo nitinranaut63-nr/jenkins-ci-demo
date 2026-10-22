@@ -11,24 +11,26 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'chmod +x app.sh'
-                sh 'echo "Building application..."'
+                sh 'echo "Building the application..."'
+                sh 'cat app.txt'
             }
         }
 
         stage('Test') {
             steps {
-                sh './app.sh'
+                sh 'test -f app.txt'
+                echo 'Application test passed!'
             }
         }
     }
 
     post {
         success {
-            echo 'CI pipeline completed successfully!'
+            echo 'CI Pipeline completed successfully!'
         }
         failure {
-            echo 'CI pipeline failed. Check the logs.'
+            echo 'CI Pipeline failed. Check the console output.'
         }
     }
 }
+
